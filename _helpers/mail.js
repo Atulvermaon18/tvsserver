@@ -3,31 +3,32 @@ const Admin = require('../models/admin.model');
 
 
 module.exports = {
-    mailer: (name, roomno, mail) => {
-
+    mailer: (name, empID) => {
+        console.log("reached mailer")
         getUserData('Atul').then(user => {
             let transporter = nodeMailer.createTransport({
                 host: 'smtp.gmail.com',
                 port: 465,
                 secure: true,
                 auth: {
-                    user: 'smarthotelsurvey@gmail.com',
-                    pass: 'Smarthotelsurvey#123'
+                    user: 'tvsnextsurvey@gmail.com',
+                    pass: 'tvsnextsurvey#123'
                 }
             });
             let mailOptions = {
-                from: 'atul.verma.maa@gmail.com', // sender address
+                from: 'tvsnextsurvey@gmail.com', // sender address
                 to: user.emails, // list of receivers
-                subject: 'New Feedback from Guest', // Subject line
+                subject: 'New Feedback from Employee', // Subject line
                 text: 'Feedback', // plain text body
-                html: `<b>Hi There,<br>
-              Mr. ${name}, From Room Numer: ${roomno}  Has given a feedback!!! Please login to survey to view the report.
-              <br>https://feedbackformnarobi.herokuapp.com <br>
+                html: `Hi There,<br>
+              Mr. ${name}, EmployeeID: ${empID}  Has given a feedback!!! Please login to survey to view the report.
+              <br>https://tvsnxt.herokuapp.com/ <br>
 
              <i> Regards<br>
-              Atul</i>
-            </b>`
+              TVS</i>
+            `
             };
+            console.log("Sending mailer")
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     return console.log(error);
@@ -47,12 +48,12 @@ module.exports = {
             port: 465,
             secure: true,
             auth: {
-                user: 'smarthotelsurvey@gmail.com',
-                pass: 'Smarthotelsurvey#123'
+                user: 'tvsnextsurvey@gmail.com',
+                pass: 'tvsnextsurvey#123'
             }
         });
         let mailOptions = {
-            from: 'smarthotelsurvey@gmail.com', // sender address
+            from: 'tvsnextsurvey@gmail.com', // sender address
             to: req.body.fb_mail, // list of receivers
             subject: 'Re: Feedback From Hotel Tulip', // Subject line
             text: 'Feedback', // plain text body
@@ -83,12 +84,12 @@ module.exports = {
                     port: 465,
                     secure: true,
                     auth: {
-                        user: 'smarthotelsurvey@gmail.com',
-                        pass: 'Smarthotelsurvey#123'
+                        user: 'tvsnextsurvey@gmail.com',
+                        pass: 'tvsnextsurvey#123'
                     }
                 });
                 let mailOptions = {
-                    from: 'smarthotelsurvey@gmail.com', // sender address
+                    from: 'tvsnextsurvey@gmail.com', // sender address
                     to: user.emails, // list of receivers
                     subject: 'Re: Password ', // Subject line
                     text: 'Feedback', // plain text body
