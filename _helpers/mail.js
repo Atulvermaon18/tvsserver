@@ -21,7 +21,7 @@ module.exports = {
                 subject: 'New Feedback from Employee', // Subject line
                 text: 'Feedback', // plain text body
                 html: `Hi There,<br><br>
-              Mr/Miss. ${name}, with employee ID : ${empID} has given a feedback!!! Please login to survey app to view the report.
+              Mr/Ms. ${name}, with employee ID : ${empID} has given a feedback!!! Please login to survey app to view the report.
               <br>https://tvsnxt.herokuapp.com/ <br><br>
 
              <i> Regards<br>
