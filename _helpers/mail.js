@@ -21,7 +21,7 @@ module.exports = {
                 subject: 'New Feedback from Employee', // Subject line
                 text: 'Feedback', // plain text body
                 html: `Hi There,<br><br>
-              Mr/Miss. ${name}, with Employee ID : ${empID}  has given a feedback!!! Please login to survey to view the report.
+              Mr/Miss. ${name}, with employee ID : ${empID} has given a feedback!!! Please login to survey app to view the report.
               <br>https://tvsnxt.herokuapp.com/ <br>
 
              <i> Regards<br><br>
@@ -36,20 +36,7 @@ module.exports = {
                 console.log('Message %s sent: %s', info.messageId, info.response);
 
             });
-            mailOptions.to = mail;
-            mailOptions.html = `Dear ${name},<br><br>
-                    Thank you for your feedback, we will sure look into your suggestion and try to improve the service
 
-           <i> Regards<br><br>
-            TVS</i>
-          `
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    return console.log(error);
-                }
-                console.log('Message %s sent: %s', info.messageId, info.response);
-
-            });
         }).catch(err => next(err));
 
     },
