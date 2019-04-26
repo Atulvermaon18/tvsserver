@@ -22,9 +22,9 @@ module.exports = {
                 text: 'Feedback', // plain text body
                 html: `Hi There,<br><br>
               Mr/Miss. ${name}, with employee ID : ${empID} has given a feedback!!! Please login to survey app to view the report.
-              <br>https://tvsnxt.herokuapp.com/ <br>
+              <br>https://tvsnxt.herokuapp.com/ <br><br>
 
-             <i> Regards<br><br>
+             <i> Regards<br>
               TVS</i>
             `
             };
