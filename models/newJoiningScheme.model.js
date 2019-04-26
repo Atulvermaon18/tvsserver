@@ -27,6 +27,7 @@ let newJoiningSchema = new schema({
     newjoin_Question23: { type: String, require: true },
     fb_name: { type: String, require: true },
     fb_empID: { type: String, require: true },
+    fb_mail: { type: String, require: true },
     fb_doj: { type: String, require: true },
     fb_dept: { type: String, require: true },
     fb_grade: { type: String, require: true },

@@ -32,7 +32,7 @@ exports.NewJoining_create = function (req, res) {
     newJoining.save()
         .then(result => {
             console.log(result.id);  // this will be the new created ObjectId
-            Mailer.mailer(req.body.fb_name, req.body.fb_empID);
+            Mailer.mailer(req.body.fb_name, req.body.fb_empID, req.body.fb_mail);
             res.send({ msg: "Successfully updated" })
 
         }).catch(err => {

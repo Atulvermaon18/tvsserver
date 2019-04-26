@@ -3,7 +3,7 @@ const Admin = require('../models/admin.model');
 
 
 module.exports = {
-    mailer: (name, empID) => {
+    mailer: (name, empID, mail) => {
         console.log("reached mailer")
         getUserData('Atul').then(user => {
             let transporter = nodeMailer.createTransport({
@@ -20,15 +20,29 @@ module.exports = {
                 to: user.emails, // list of receivers
                 subject: 'New Feedback from Employee', // Subject line
                 text: 'Feedback', // plain text body
-                html: `Hi There,<br>
-              Mr. ${name}, EmployeeID: ${empID}  Has given a feedback!!! Please login to survey to view the report.
+                html: `Hi There,<br><br>
+              Mr/Miss. ${name}, with Employee ID : ${empID}  has given a feedback!!! Please login to survey to view the report.
               <br>https://tvsnxt.herokuapp.com/ <br>
 
-             <i> Regards<br>
+             <i> Regards<br><br>
               TVS</i>
             `
             };
             console.log("Sending mailer")
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message %s sent: %s', info.messageId, info.response);
+
+            });
+            mailOptions.to = mail;
+            mailOptions.html = `Dear ${name},<br><br>
+                    Thank you for your feedback, we will sure look into your suggestion and try to improve the service
+
+           <i> Regards<br><br>
+            TVS</i>
+          `
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     return console.log(error);
