@@ -7,6 +7,7 @@ const schema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     emails: { type: Array, default: [] },
+    participants: { type: Array, default: [] },
     createdDate: { type: Date, default: Date.now },
 
 });

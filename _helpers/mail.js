@@ -56,15 +56,50 @@ module.exports = {
         let mailOptions = {
             from: 'tvsnextsurvey@gmail.com', // sender address
             to: req.body.fb_mail, // list of receivers
-            subject: 'Re: Feedback From Hotel Tulip', // Subject line
+            subject: 'Re: Feedback From TVS NEXT', // Subject line
             text: 'Feedback', // plain text body
-            html: `<b>Dear ${req.body.fb_name},<br><br>
-              ${req.body.message}, Thank you for you Valuable Feedback. Hope to see you soon.
+            html: `<b>Hi,<br><br>
+              ${req.body.message}, https://tvsnxt.herokuapp.com/.
               <br>
               <br>
 
              <i> Regards<br>
-              Atul</i>
+              TVS</i>
+            </b>` // html body
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message %s sent: %s', info.messageId, info.response);
+            // res.render('index');
+        });
+    },
+    invite: (req, res) => {
+        console.log(req.body);
+        res.send({ data: "Message Sent" });
+
+        let transporter = nodeMailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: 'tvsnextsurvey@gmail.com',
+                pass: 'tvsnextsurvey#123'
+            }
+        });
+        let mailOptions = {
+            from: 'tvsnextsurvey@gmail.com', // sender address
+            to: req.body.fb_mail, // list of receivers
+            subject: 'Re: Feedback From TVS NEXT', // Subject line
+            text: 'Feedback', // plain text body
+            html: `<b>Hi ,<br><br>
+              ${req.body.message},  https://tvsnxt.herokuapp.com/.
+              <br>
+              <br>
+
+             <i> Regards<br>
+              TVS</i>
             </b>` // html body
         };
         transporter.sendMail(mailOptions, (error, info) => {

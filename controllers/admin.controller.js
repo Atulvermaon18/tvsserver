@@ -73,17 +73,26 @@ async function changePassword({ username, password, oldPassword }) {
     }
 }
 
-async function addEmails({ username, email }) {
+async function addEmails({ username, email, isParticipants }) {
 
-    console.log(username, email)
+    console.log(username, email, isParticipants)
     const user = await admin.findOne({ username });
     if (user) {
+        let update;
+        if (!isParticipants) {
+            update = await admin.findOneAndUpdate({ username: user.username }, { $addToSet: { emails: email } }, (err, doc) => {
+                if (err) {
+                    console.log("Something wrong when updating data!");
+                }
+            });
+        } else {
+            update = await admin.findOneAndUpdate({ username: user.username }, { $addToSet: { participants: email } }, (err, doc) => {
+                if (err) {
+                    console.log("Something wrong when updating data!");
+                }
+            });
+        }
 
-        let update = await admin.findOneAndUpdate({ username: user.username }, { $addToSet: { emails: email } }, (err, doc) => {
-            if (err) {
-                console.log("Something wrong when updating data!");
-            }
-        });
 
         if (update) {
             console.log("Sending ", update);
@@ -102,17 +111,25 @@ async function addEmails({ username, email }) {
     }
 }
 
-async function removeEmails({ username, email }) {
+async function removeEmails({ username, email, isParticipants }) {
 
     console.log(username, email)
     const user = await admin.findOne({ username });
     if (user) {
-
-        let update = await admin.findOneAndUpdate({ username: user.username }, { $pull: { emails: email } }, (err, doc) => {
-            if (err) {
-                console.log("Something wrong when updating data!");
-            }
-        });
+        let update;
+        if (!isParticipants) {
+            update = await admin.findOneAndUpdate({ username: user.username }, { $pull: { emails: email } }, (err, doc) => {
+                if (err) {
+                    console.log("Something wrong when updating data!");
+                }
+            });
+        } else {
+            update = await admin.findOneAndUpdate({ username: user.username }, { $pull: { participants: email } }, (err, doc) => {
+                if (err) {
+                    console.log("Something wrong when updating data!");
+                }
+            });
+        }
 
         if (update) {
             console.log("Sending ", update);

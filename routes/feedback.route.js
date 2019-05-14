@@ -15,6 +15,8 @@ router.post('/authenticate', Login.authenticateUser);
 router.post('/changePassword', middleware.checkToken, Login.changeUserPassword);//Admin Access only
 
 router.post('/revertMail', middleware.checkToken, Mailer.revert)//Admin Access only
+router.post('/inviteMail', middleware.checkToken, Mailer.invite)//Admin Access only
+
 router.post('/sendPassword', Mailer.sendPassword);
 router.post('/addMoreEmails', middleware.checkToken, Login.addMoreEmails);//Admin Access only
 
