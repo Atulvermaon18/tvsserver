@@ -10,6 +10,7 @@ router.post('/ITCreate', TVSController.IT_create);
 router.post('/HRCreate', TVSController.HR_create);
 router.post('/NewJoining', TVSController.NewJoining_create);
 router.get('/ITRead', middleware.checkToken, TVSController.TVS_read);//Admin Access only
+router.get('/export', TVSController.csvExport);//Admin Access only
 
 router.post('/authenticate', Login.authenticateUser);
 router.post('/changePassword', middleware.checkToken, Login.changeUserPassword);//Admin Access only
