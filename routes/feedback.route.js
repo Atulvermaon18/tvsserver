@@ -18,6 +18,10 @@ router.post('/changePassword', middleware.checkToken, Login.changeUserPassword);
 router.post('/revertMail', middleware.checkToken, Mailer.revert)//Admin Access only
 router.post('/inviteMail', middleware.checkToken, Mailer.invite)//Admin Access only
 
+router.post('/addQuestions', TVSController.Questions_create);
+router.get('/viewQuestions', TVSController.Questions_fetch);
+router.patch('/updateQuestions', TVSController.Questions_Update);
+
 router.post('/sendPassword', Mailer.sendPassword);
 router.post('/addMoreEmails', middleware.checkToken, Login.addMoreEmails);//Admin Access only
 

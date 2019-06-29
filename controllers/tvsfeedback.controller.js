@@ -4,6 +4,8 @@ const GQDept = require('../models/generalquestion.model');
 const newJoiningSchema = require('../models/newJoiningScheme.model')
 const Mailer = require('../_helpers/mail.js');
 var nodeExcel = require('excel-export');
+const ItQuestionDept = require('../models/itquestion.model');
+const HRQuestionDept = require('../models/hrquestion.model');
 
 exports.IT_create = function (req, res) {
 
@@ -21,9 +23,6 @@ exports.IT_create = function (req, res) {
 
 
 };
-
-
-
 
 exports.NewJoining_create = function (req, res) {
 
@@ -232,3 +231,91 @@ exports.csvExport = function (req, res) {
         }
     });
 };
+
+
+exports.Questions_create = async (req, res) => {
+    console.log(`${req.body.type} create API`);
+    console.log(req.body);
+    let insert = {};
+    switch (req.body.type) {
+        case "it":
+            insert = new ItQuestionDept(req.body);
+            break;
+        case "hr":
+            insert = new HRQuestionDept(req.body);
+            break;
+    }
+
+    try {
+        const result = await insert.save()
+        console.log(result.id);  // this will be the new created ObjectId
+        //Mailer.mailer(req.body.fb_name, req.body.fb_empID, req.body.fb_mail);
+        res.send({ status: 200, msg: "Successfully added" })
+    }
+    catch (e) {
+        console.log(e)
+    }
+
+}
+
+exports.Questions_fetch = async (req, res) => {
+    console.log(`${req.query.type} create API`);
+    let read = {};
+    if (!req.query.type) {
+        throw new Error('Please mention any type')
+    }
+    try {
+        switch (req.query.type) {
+            case "it":
+                read = await ItQuestionDept.find({})
+                break;
+            case "hr":
+                read = await HRQuestionDept.find({})
+                break;
+        }
+        if (!read) {
+            return res.status(404).send()
+        }
+        res.send({ status: 200, data: read })
+    }
+    catch (e) {
+        console.log(e)
+    }
+}
+
+exports.Questions_Update = async (req, res) => {
+    console.log(`${req.query.type} update API`);
+    let insert = {};
+    let deleteDoc = {}
+
+    if (!req.query.type) {
+        throw new Error('No type selected')
+    }
+    if (!req.query.id) {
+        throw new Error('Id should not be null')
+    }
+    try {
+        switch (req.query.type) {
+            case "it":
+                deleteDoc = await ItQuestionDept.findByIdAndDelete(req.query.id)
+                insert = new ItQuestionDept(req.body)
+                break;
+            case "hr":
+                deleteDoc = await HRQuestionDept.findByIdAndDelete(req.query.id)
+                insert = new HRQuestionDept(req.body)
+                break;
+        }
+
+        if (!deleteDoc) {
+            console.log('Nothing to delete')
+        }
+
+        const result = await insert.save()
+        console.log(result.id);
+
+        res.send({ status: 200, msg: "Successfully updated" })
+    }
+    catch (e) {
+        console.log(e)
+    }
+}
