@@ -1,31 +1,31 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-let newJoiningSchema = new schema({
-    newjoin_Question0: { type: String, require: true },
-    newjoin_Question1: { type: String, require: true },
-    newjoin_Question2: { type: String, require: true },
-    newjoin_Question3: { type: String, require: true },
-    newjoin_Question4: { type: String, require: true },
-    newjoin_Question5: { type: String, require: true },
-    newjoin_Question6: { type: String, require: true },
-    newjoin_Question7: { type: String, require: true },
-    newjoin_Question8: { type: String, require: true },
-    newjoin_Question9: { type: String, require: true },
-    newjoin_Question10: { type: String, require: true },
-    newjoin_Question11: { type: String, require: true },
-    newjoin_Question12: { type: String, require: true },
-    newjoin_Question13: { type: String, require: true },
-    newjoin_Question14: { type: String, require: true },
-    newjoin_Question15: { type: String, require: true },
-    newjoin_Question16: { type: String, require: true },
-    newjoin_Question17: { type: String, require: true },
-    newjoin_Question18: { type: String, require: true },
-    newjoin_Question19: { type: String, require: true },
-    newjoin_Question20: { type: String, require: true },
-    newjoin_Question21: { type: String, require: true },
-    newjoin_Question22: { type: String, require: true },
-    newjoin_Question23: { type: String, require: true },
+let QuestionsSchema = new schema({
+    question0: { type: String, require: true },
+    question1: { type: String, require: true },
+    question2: { type: String, require: true },
+    question3: { type: String, require: true },
+    question4: { type: String, require: true },
+    question5: { type: String, require: true },
+    question6: { type: String, require: true },
+    question7: { type: String, require: true },
+    question8: { type: String, require: true },
+    question9: { type: String, require: true },
+    question10: { type: String, require: true },
+    question11: { type: String, require: true },
+    question12: { type: String, require: true },
+    question13: { type: String, require: true },
+    question14: { type: String, require: true },
+    question15: { type: String, require: true },
+    question16: { type: String, require: true },
+    question17: { type: String, require: true },
+    question18: { type: String, require: true },
+    question19: { type: String, require: true },
+    question20: { type: String, require: true },
+    question21: { type: String, require: true },
+    question22: { type: String, require: true },
+    question23: { type: String, require: true },
     fb_name: { type: String, require: true },
     fb_empID: { type: String, require: true },
     fb_mail: { type: String, require: true },
@@ -36,4 +36,4 @@ let newJoiningSchema = new schema({
     time: { type: Date, default: Date.now }
 })
 
-module.exports = mongoose.model('newJoiningSchema', newJoiningSchema)
+module.exports = mongoose.model('QuestionsSchema', QuestionsSchema)

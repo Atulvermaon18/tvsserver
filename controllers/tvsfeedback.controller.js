@@ -1,12 +1,12 @@
 const GQDept = require('../models/generalquestion.model');
-const newJoiningSchema = require('../models/newJoiningScheme.model')
+const QuestionsSchema = require('../models/newJoiningScheme.model')
 const Mailer = require('../_helpers/mail.js');
 var nodeExcel = require('excel-export');
 
 exports.NewJoining_create = function (req, res) {
 
     console.log("NewJoining_create create API");
-    let newJoining = new newJoiningSchema(req.body);
+    let newJoining = new QuestionsSchema(req.body);
     newJoining.save()
         .then(result => {
             console.log(result.id);  // this will be the new created ObjectId
@@ -24,7 +24,7 @@ exports.NewJoining_create = function (req, res) {
 exports.TVS_read = function (req, res) {
     console.log('Reached Route');
 
-    newJoiningSchema.find({}).sort({ date: 'descending' }).exec(function (err, docs) {
+    QuestionsSchema.find({}).sort({ date: 'descending' }).exec(function (err, docs) {
         if (err) {
             console.log(err)
         }
@@ -38,7 +38,7 @@ exports.TVS_read = function (req, res) {
 exports.csvExport = function (req, res) {
     console.log('Reached export');
 
-    newJoiningSchema.find({}).sort({ date: 'descending' }).exec(function (err, docs) {
+    QuestionsSchema.find({}).sort({ date: 'descending' }).exec(function (err, docs) {
         if (err) {
             console.log(err)
         }
