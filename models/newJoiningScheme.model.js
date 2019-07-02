@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 let newJoiningSchema = new schema({
+    newjoin_Question0: { type: String, require: true },
     newjoin_Question1: { type: String, require: true },
     newjoin_Question2: { type: String, require: true },
     newjoin_Question3: { type: String, require: true },

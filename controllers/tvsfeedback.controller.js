@@ -1,28 +1,7 @@
-const ItDept = require('../models/it.model');
-const HRDept = require('../models/hr.model');
 const GQDept = require('../models/generalquestion.model');
 const newJoiningSchema = require('../models/newJoiningScheme.model')
 const Mailer = require('../_helpers/mail.js');
 var nodeExcel = require('excel-export');
-const ItQuestionDept = require('../models/itquestion.model');
-const HRQuestionDept = require('../models/hrquestion.model');
-
-exports.IT_create = function (req, res) {
-
-    console.log("IT create API");
-    let itdept = new ItDept(req.body);
-    itdept.save()
-        .then(result => {
-            console.log(result.id);  // this will be the new created ObjectId
-            //Mailer.mailer(req.body.fb_name, req.body.fb_empID, req.body.fb_mail);
-            res.send({ msg: "Successfully updated" })
-
-        }).catch(err => {
-            console.log(err)
-        })
-
-
-};
 
 exports.NewJoining_create = function (req, res) {
 
@@ -41,42 +20,6 @@ exports.NewJoining_create = function (req, res) {
 
 };
 
-exports.HR_create = function (req, res) {
-
-    console.log("HR create API");
-    console.log(req.body);
-    let hrDept = new HRDept(req.body);
-    hrDept.save()
-        .then(result => {
-            console.log(result.id);  // this will be the new created ObjectId
-            //Mailer.mailer(req.body.fb_name, req.body.fb_empID, req.body.fb_mail);
-            res.send({ msg: "Successfully updated" })
-
-        }).catch(err => {
-            console.log(err)
-        })
-
-
-};
-
-
-exports.GeneralQuestion_create = function (req, res) {
-
-    console.log("GeneralQuestion_create create API");
-    console.log(req.body);
-    let gqDept = new GQDept(req.body);
-    gqDept.save()
-        .then(result => {
-            console.log(result.id);  // this will be the new created ObjectId
-            //Mailer.mailer(req.body.fb_name, req.body.fb_empID, req.body.fb_mail);
-            res.send({ msg: "Successfully updated" })
-
-        }).catch(err => {
-            console.log(err)
-        })
-
-
-};
 
 exports.TVS_read = function (req, res) {
     console.log('Reached Route');
@@ -234,20 +177,13 @@ exports.csvExport = function (req, res) {
 
 
 exports.Questions_create = async (req, res) => {
+
     console.log(`${req.body.type} create API`);
     console.log(req.body);
-    let insert = {};
-    switch (req.body.type) {
-        case "it":
-            insert = new ItQuestionDept(req.body);
-            break;
-        case "hr":
-            insert = new HRQuestionDept(req.body);
-            break;
-    }
+    let gqDept = new GQDept(req.body);
 
     try {
-        const result = await insert.save()
+        const result = await gqDept.save()
         console.log(result.id);  // this will be the new created ObjectId
         //Mailer.mailer(req.body.fb_name, req.body.fb_empID, req.body.fb_mail);
         res.send({ status: 200, msg: "Successfully added" })
@@ -259,20 +195,10 @@ exports.Questions_create = async (req, res) => {
 }
 
 exports.Questions_fetch = async (req, res) => {
-    console.log(`${req.query.type} create API`);
     let read = {};
-    if (!req.query.type) {
-        throw new Error('Please mention any type')
-    }
     try {
-        switch (req.query.type) {
-            case "it":
-                read = await ItQuestionDept.find({})
-                break;
-            case "hr":
-                read = await HRQuestionDept.find({})
-                break;
-        }
+        read = await GQDept.find({})
+
         if (!read) {
             return res.status(404).send()
         }
@@ -284,27 +210,14 @@ exports.Questions_fetch = async (req, res) => {
 }
 
 exports.Questions_Update = async (req, res) => {
-    console.log(`${req.query.type} update API`);
+
     let insert = {};
     let deleteDoc = {}
-
-    if (!req.query.type) {
-        throw new Error('No type selected')
-    }
-    if (!req.query.id) {
-        throw new Error('Id should not be null')
-    }
+    console.log(req.query.id + " Update for ID")
     try {
-        switch (req.query.type) {
-            case "it":
-                deleteDoc = await ItQuestionDept.findByIdAndDelete(req.query.id)
-                insert = new ItQuestionDept(req.body)
-                break;
-            case "hr":
-                deleteDoc = await HRQuestionDept.findByIdAndDelete(req.query.id)
-                insert = new HRQuestionDept(req.body)
-                break;
-        }
+
+        deleteDoc = await GQDept.findByIdAndDelete(req.query.id)
+        insert = new GQDept(req.body)
 
         if (!deleteDoc) {
             console.log('Nothing to delete')
